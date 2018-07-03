@@ -1,20 +1,14 @@
+const createAction = (type) => (params = {}) => ({type, ...params});
+
 // Users
 const AUTH_USER = 'AUTH_USER';
-const AUTH_USER_ACTION = {
-  type: AUTH_USER,
-  uid: null
-};
+const AUTH_USER_ACTION = ({userId}) => createAction(AUTH_USER)({userId});
 
 const UNAUTH_USER = 'UNAUTH_USER';
-const UNAUTH_USER_ACTION = {
-  type: UNAUTH_USER,
-  uid: null
-};
+const UNAUTH_USER_ACTION = ({userId}) => createAction(UNAUTH_USER)({userId});
 
 const FETCHING_USER = 'FETCHING_USER';
-const FETCHING_USER_ACTION = {
-  type: FETCHING_USER,
-};
+const FETCHING_USER_ACTION = createAction(FETCHING_USER);
 
 const FETCHING_USER_FAILURE = 'FETCHING_USER_FAILURE';
 const FETCHING_USER_FAILURE_ACTION = {
@@ -22,19 +16,13 @@ const FETCHING_USER_FAILURE_ACTION = {
 };
 
 const FETCHING_USER_SUCCESS = 'FETCHING_USER_SUCCESS';
-const FETCHING_USER_SUCCESS_ACTION = {
-  type: FETCHING_USER_SUCCESS,
-  uid: null,
-  user: null,
-  timestamp: null,
-};
+const FETCHING_USER_SUCCESS_ACTION = ({userId, user, timestamp}) =>
+  createAction(FETCHING_USER_SUCCESS)({userId, user, timestamp});
 
 
 //Ducks
 const FETCHING_DUCK = 'FETCHING_DUCK';
-const FETCHING_DUCK_ACTION = {
-  type: FETCHING_DUCK
-};
+const FETCHING_DUCK_ACTION = createAction(FETCHING_DUCK);
 
 const FETCHING_DUCK_FAILURE = 'FETCHING_DUCK_FAILURE';
 const FETCHING_DUCK_FAILURE_ACTION = {
@@ -42,33 +30,20 @@ const FETCHING_DUCK_FAILURE_ACTION = {
 };
 
 const REMOVE_FETCHING = 'REMOVE_FETCHING';
-const REMOVE_FETCHING_ACTION = {
-  type: REMOVE_FETCHING
-};
+const REMOVE_FETCHING_ACTION = createAction(REMOVE_FETCHING);
 
 const ADD_DUCK = 'ADD_DUCK';
-const ADD_DUCK_ACTION = {
-  type: ADD_DUCK,
-  duck: null
-};
+const ADD_DUCK_ACTION = createAction(ADD_DUCK);
 
 const ADD_MULTIPLE_DUCKS = 'ADD_MULTIPLE_DUCKS';
-const ADD_MULTIPLE_DUCKS_ACTION = {
-  type: ADD_MULTIPLE_DUCKS,
-  ducks: null,
-};
+const ADD_MULTIPLE_DUCKS_ACTION = ({ducks}) => createAction(ADD_MULTIPLE_DUCKS)({ducks});
 
 // Feed
 const SETTING_FEED_LISTENER = 'SETTING_FEED_LISTENER';
-const SETTING_FEED_LISTENER_ACTION = {
-  type: SETTING_FEED_LISTENER,
-
-};
+const SETTING_FEED_LISTENER_ACTION = createAction(SETTING_FEED_LISTENER);
 
 const FETCHING_FEED = 'FETCHING_FEED';
-const FETCHING_FEED_ACTION = {
-  type: FETCHING_FEED
-};
+const FETCHING_FEED_ACTION = createAction(FETCHING_FEED);
 
 const SETTING_FEED_LISTENER_FAILURE = 'FETCHING_FEED_FAILURE';
 const SETTING_FEED_LISTENER_FAILURE_ACTION = {
@@ -76,47 +51,29 @@ const SETTING_FEED_LISTENER_FAILURE_ACTION = {
 };
 
 const SETTING_FEED_LISTENER_SUCCESS = 'SETTING_FEED_LISTENER_SUCCESS';
-const SETTING_FEED_LISTENER_SUCCESS_ACTION = {
-  type: SETTING_FEED_LISTENER_SUCCESS,
-  duckIds: null,
-};
+const SETTING_FEED_LISTENER_SUCCESS_ACTION = ({duckIds}) => createAction(SETTING_FEED_LISTENER_SUCCESS)({duckIds});
 
 const RESET_NEWS_DUCKS_AVAILABLE = 'RESET_NEWS_DUCKS_AVAILABLE';
-const RESET_NEWS_DUCKS_AVAILABLE_ACTION = {
-  type: RESET_NEWS_DUCKS_AVAILABLE,
-};
+const RESET_NEWS_DUCKS_AVAILABLE_ACTION = createAction(RESET_NEWS_DUCKS_AVAILABLE);
 
 // Listeners
-
 const ADD_LISTENER = 'ADD_LISTENER';
-const ADD_LISTENER_ACTION = {
-  type: ADD_LISTENER,
-  listenerId: null
-};
+const ADD_LISTENER_ACTION = ({listenerId}) => createAction(ADD_LISTENER)({listenerId});
 
 
 // MODAL
 const OPEN_MODAL = 'OPEN_MODAL';
-const OPEN_MODAL_ACTION = {
-  type: OPEN_MODAL,
-};
+const OPEN_MODAL_ACTION = createAction(OPEN_MODAL);
 
 const CLOSE_MODAL = 'CLOSE_MODAL';
-const CLOSE_MODAL_ACTION = {
-  type: CLOSE_MODAL,
-};
+const CLOSE_MODAL_ACTION = createAction(CLOSE_MODAL);
 
 const UPDATE_DUCK_TEXT = 'UPDATE_DUCK_TEXT';
-const UPDATE_DUCK_TEXT_ACTION = {
-  type: UPDATE_DUCK_TEXT,
-  newDuckText: null,
-};
+const UPDATE_DUCK_TEXT_ACTION = ({newDuckText}) => createAction(UPDATE_DUCK_TEXT)(newDuckText);
 
 //Replies
 const FETCHING_REPLIES = 'FETCHING_REPLIES';
-const FETCHING_REPLIES_ACTION = {
-  type: FETCHING_REPLIES,
-};
+const FETCHING_REPLIES_ACTION = createAction(FETCHING_REPLIES);
 
 const FETCHING_REPLIES_ERROR = 'FETCHING_REPLIES_ERROR';
 const FETCHING_REPLIES_ERROR_ACTION = {
@@ -124,20 +81,12 @@ const FETCHING_REPLIES_ERROR_ACTION = {
 };
 
 const FETCHING_REPLIES_SUCCESS = 'FETCHING_REPLIES_SUCCESS';
-const FETCHING_REPLIES_SUCCESS_ACTION = {
-  type: FETCHING_REPLIES_SUCCESS,
-  replies: null,
-  duckId: null,
-  lastUpdate : Date.now(),
-};
+const FETCHING_REPLIES_SUCCESS_ACTION = ({replies, duckId, lastUpdate = Date.now()}) =>
+  createAction(FETCHING_REPLIES_SUCCESS)({replies, duckId, lastUpdate});
 
 
 const ADD_REPLY = 'ADD_REPLY';
-const ADD_REPLY_ACTION = {
-  type: ADD_REPLY,
-  duckId: null,
-  reply: null,
-};
+const ADD_REPLY_ACTION = ({type, duckId, reply}) => createAction(ADD_REPLY)({type, duckId, reply});
 
 const ADD_REPLY_ERROR = 'ADD_REPLY_ERROR';
 const ADD_REPLY_ERROR_ACTION = {
@@ -145,12 +94,43 @@ const ADD_REPLY_ERROR_ACTION = {
 };
 
 const REMOVE_REPLY = 'REMOVE_REPLY';
-const REMOVE_REPLY_ACTION = {
-  type: REMOVE_REPLY,
-  replyId: null,
-};
+const REMOVE_REPLY_ACTION = ({replyId}) => createAction(REMOVE_REPLY)({replyId});
 
 const ADD_LIKE = 'ADD_LIKE';
-const ADD_LIKE_ACTION = {
-  type: ADD_LIKE,
-};
+const ADD_LIKE_ACTION = createAction(ADD_LIKE);
+
+//like count
+const FETCHING_COUNT = 'FETCHING_COUNT';
+const FETCHING_COUNT_ACTION = createAction(FETCHING_COUNT);
+
+const FETCHING_COUNT_ERROR = 'FETCHING_COUNT';
+const FETCHING_COUNT_ERROR_ACTION = () => ({
+  error: FETCHING_COUNT_ERROR
+});
+
+const FETCHING_COUNT_SUCCESS = 'FETCHING_COUNT_SUCCESS';
+const FETCHING_COUNT_SUCCESS_ACTION = ({duckId, count}) => createAction(FETCHING_COUNT_SUCCESS)({duckId, count});
+
+const ADD_SINGLE_USERS_DUCK = 'ADD_SINGLE_USERS_DUCK';
+const ADD_SINGLE_USERS_DUCK_ACTION = ({userId, duckId, lastUpdate}) => createAction(ADD_SINGLE_USERS_DUCK)({
+  userId,
+  duckId,
+  lastUpdate
+});
+
+//usersLikes
+
+const FETCHING_LIKES = 'FETCHING_LIKES';
+const FETCHING_LIKES_ACTION = createAction(FETCHING_LIKES);
+
+const FETCHING_LIKES_ERROR = 'FETCHING_LIKES_ERROR';
+const FETCHING_LIKES_ERROR_ACTION = () => ({
+  error: FETCHING_LIKES_ERROR
+});
+
+const FETCHING_LIKES_SUCCESS = 'FETCHING_LIKES_ERROR';
+const FETCHING_LIKES_SUCCESS_ACTION = ({likes}) => createAction(FETCHING_LIKES_SUCCESS)({likes});
+
+const ADD_LIKE_ACTION = ({duckId}) => createAction(ADD_LIKE)({duckId});
+
+
