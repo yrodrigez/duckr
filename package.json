@@ -6,6 +6,8 @@
   "repository": "https://github.com/yrodrigez/duckr.git",
   "author": "yrodrigez <yrodrigez@gmail.com>",
   "dependencies": {
+    "mini-css-extract-plugin": "^0.4.1",
+    "node-sass": "^4.9.0",
     "react": "^16.4.1",
     "react-create-app": "^2.0.6",
     "react-dom": "^16.4.1",
@@ -30,10 +32,12 @@
     "webpack-dev-server": "^3.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
+    "start": "webpack-dev-server --mode=production",
+    "build": "webpack --mode=development",
+    "rsstart": "react-scripts start",
+    "rsbuild": "react-scripts build",
+    "rstest": "react-scripts test --env=jsdom",
+    "rseject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   }

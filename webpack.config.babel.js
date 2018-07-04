@@ -1,6 +1,7 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import webpack from 'webpack';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: __dirname + '/public/index.html',
@@ -13,6 +14,10 @@ const PATHS = {
   build: path.join(__dirname, 'dist'),
 };
 
+
+const LAUNCH_COMMAND = process.env.NODE_ENV;
+const isProduction = LAUNCH_COMMAND === 'production';
+
 const base = {
   entry: [
     PATHS.src,
@@ -24,14 +29,14 @@ const base = {
   module: {
     rules: [
       {test: /\.js$/, enforce: 'pre', exclude: /node_modules/, loader: 'babel-loader'},
-      {test: /\.scss$/, enforce: 'pre', loaders: ['style-loader', 'css-loader', 'sass-loader']},
-      {test: /\.css$/, enforce: 'pre', loaders:["style-loader", "css-loader?sourceMap&modules&localIdentName=[name]__[local]__[hash:base64:5]"]}
+      {test: /\.scss$/, enforce: 'pre', loaders: [
+        isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+          'css-loader',
+          'sass-loader']}
     ]
   }
 };
 
-const LAUNCH_COMMAND = process.env.NODE_ENV;
-const isProduction = LAUNCH_COMMAND === 'production';
 
 const devConfig = {
   devtool: "cheap-module-inline-source-map",
@@ -46,7 +51,7 @@ const devConfig = {
 
 const prodConfig = {
   devtool: "cheap-module-source-map",
-  plugins: [HtmlWebpackPluginConfig]
+  plugins: [HtmlWebpackPluginConfig, new MiniCssExtractPlugin({filename: "[name].css", chunkFilename: "[id].css"})]
 };
 
 const current = isProduction ? prodConfig : devConfig;

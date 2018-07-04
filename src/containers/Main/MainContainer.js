@@ -1,10 +1,12 @@
 import React, {Component} from 'react'
-
+import "./index.scss"
 class MainContainer extends Component {
 
 
   render() {
-    return <div>{this.props.children}</div>;
+    return <div className="container">
+      <div className="inner-container">{this.props.children}</div>
+    </div>;
   }
 }
 
